@@ -20,26 +20,23 @@ return {
       { 'dundalek/lazy-lsp.nvim' },
 
       -- Useful status updates for LSP.
-      { 'j-hui/fidget.nvim', opts = {} },
+      { 'j-hui/fidget.nvim',     opts = {} },
 
       -- Allows extra capabilities provided by blink.cmp
       'saghen/blink.cmp',
     },
     config = function()
-      require("lazy-lsp").setup {
-        default_config = {
-          flags = { debounce_text_changes = 150 },
-        },
-        servers = {
-          "java-language-server",
-        },
-      }
-
-      local lspconfig = require("lspconfig")
       local capabilities = vim.lsp.protocol.make_client_capabilities()
-      local on_attach = function(client, bufnr)
-        -- Add keybinds here
+      local cmp_ok, cmp_nvim_lsp = pcall(require, "cmp_nvim_lsp")
+      if cmp_ok then
+        capabilities = cmp_nvim_lsp.default_capabilities(capabilities)
       end
+
+      vim.lsp.config("lua_ls", { capabilities = capabilities, on_attach = on_attach })
+      vim.lsp.enable("lua_ls")
+
+      vim.lsp.config("jdtls", { capabilities = capabilities, on_attach = on_attach })
+      vim.lsp.enable("jdtls")
     end,
   },
 }
