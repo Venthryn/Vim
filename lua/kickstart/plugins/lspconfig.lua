@@ -52,6 +52,9 @@ return {
 
       vim.lsp.config("jdtls", { capabilities = capabilities, on_attach = on_attach })
       vim.lsp.enable("jdtls")
+
+      vim.lsp.config("clangd", { cmd = { "clangd", "--clang-tidy" }, capabilities = capabilities, on_attach = on_attach })
+      vim.lsp.enable("clangd")
     end,
   },
 }
