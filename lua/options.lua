@@ -79,4 +79,10 @@ vim.o.tabstop = 2     -- tab width
 vim.o.shiftwidth = 2  -- indent width
 vim.o.softtabstop = 2 -- <tab> insert width
 
+vim.filetype.add( {
+  extension = {
+    sarl= 'sarl',
+  },
+})
+
 -- vim: ts=2 sts=2 sw=2 et
