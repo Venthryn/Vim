@@ -27,7 +27,8 @@ return {
     },
     config = function()
       vim.diagnostic.config({
-        virtual_text = true,
+        virtual_text = false,
+        virtual_lines = { only_current_line = true },
         signs = {
           text = {
             [vim.diagnostic.severity.ERROR] = "",
@@ -55,6 +56,24 @@ return {
 
       vim.lsp.config("clangd", { cmd = { "clangd", "--clang-tidy" }, capabilities = capabilities, on_attach = on_attach })
       vim.lsp.enable("clangd")
+      vim.lsp.config("ltex", {
+        capabilities = capabilities,
+        on_attach = function(client, bufnr)
+          require("ltex_extra").setup({
+            load_langs = { "en-AU" },
+            init_check = true,
+          })
+        end,
+        filetypes = { "markdown", "text", "tex", "gitcommit" },
+        settings = {
+          ltex = {
+            language = "en-AU",
+            ["ltex.additionalRules.enablePickyRules"] = true,
+            disabledRules = { ["en-AU"] = { "WHITESPACE_RULE" } },
+          },
+        },
+      })
+      vim.lsp.enable("ltex")
     end,
   },
 }
