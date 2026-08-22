@@ -39,7 +39,34 @@ vim.keymap.set('n', '<C-k>', '<C-w><C-k>', { desc = 'Move focus to the upper win
 
 -- [[ Basic Autocommands ]]
 --  See `:help lua-guide-autocommands`
+--
+--
+-- Code actions
+vim.keymap.set({ 'n', 'v' }, '<leader>ca', vim.lsp.buf.code_action, { desc = "Code action" })
 
+-- Diagnostics
+vim.keymap.set('n', '<leader>cn', function() vim.diagnostic.jump({ count = 1, float = true }) end,
+  { desc = "Next diagnostic" })
+vim.keymap.set('n', '<leader>cp', function() vim.diagnostic.jump({ count = -1, float = true }) end,
+  { desc = "Previous diagnostic" })
+vim.keymap.set('n', '<leader>ce', vim.diagnostic.open_float, { desc = "Show diagnostic (float)" })
+vim.keymap.set('n', '<leader>cl', vim.diagnostic.setloclist, { desc = "List all diagnostics" })
+
+-- Navigation
+vim.keymap.set('n', '<leader>cd', vim.lsp.buf.definition, { desc = "Goto definition" })
+vim.keymap.set('n', '<leader>cD', vim.lsp.buf.declaration, { desc = "Goto declaration" })
+vim.keymap.set('n', '<leader>cR', vim.lsp.buf.references, { desc = "Goto references" })
+vim.keymap.set('n', '<leader>ci', vim.lsp.buf.implementation, { desc = "Goto implementation" })
+vim.keymap.set('n', '<leader>ct', vim.lsp.buf.type_definition, { desc = "Goto type definition" })
+
+-- Info / editing
+vim.keymap.set('n', '<leader>ch', vim.lsp.buf.hover, { desc = "Hover docs" })
+vim.keymap.set('n', '<leader>cr', vim.lsp.buf.rename, { desc = "Rename symbol" })
+vim.keymap.set('n', '<leader>cf', function() vim.lsp.buf.format({ async = true }) end, { desc = "Format buffer" })
+
+-- Symbols
+vim.keymap.set('n', '<leader>cs', vim.lsp.buf.document_symbol, { desc = "Document symbols" })
+vim.keymap.set('n', '<leader>cw', vim.lsp.buf.workspace_symbol, { desc = "Workspace symbols" })
 -- Highlight when yanking (copying) text
 --  Try it with `yap` in normal mode
 --  See `:help vim.hl.on_yank()`
