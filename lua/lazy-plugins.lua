@@ -8,73 +8,57 @@
 --  To update plugins you can run
 --    :Lazy update
 --
--- NOTE: Here is where you install your plugins.
+-- Plugins are modular: `require 'kickstart.plugins.<name>'` loads the spec
+-- from lua/kickstart/plugins/<name>.lua. Grouped below by concern.
 require('lazy').setup({
-  -- NOTE: Plugins can be added with a link (or for a github repo: 'owner/repo' link).
   'NMAC427/guess-indent.nvim', -- Detect tabstop and shiftwidth automatically
 
-  -- NOTE: Plugins can also be added by using a table,
-  -- with the first argument being the link and the following
-  -- keys can be used to configure plugin behavior/loading/etc.
-  --
-  -- Use `opts = {}` to automatically pass options to a plugin's `setup()` function, forcing the plugin to be loaded.
-  --
-
-  -- modular approach: using `require 'path.name'` will
-  -- include a plugin definition from file lua/path/name.lua
-
-  require 'kickstart.plugins.unreal',
-
-  require 'kickstart.plugins.gitsigns',
-
-  require 'kickstart.plugins.which-key',
-
-  require 'kickstart.plugins.telescope',
-
-  require 'kickstart.plugins.lspconfig',
-
-  require 'kickstart.plugins.conform',
-
+  -- AI / Completion
+  require 'kickstart.plugins.supermaven',
   require 'kickstart.plugins.blink-cmp',
 
-  require 'kickstart.plugins.colourscheme',
+  -- LSP & tooling
+  require 'kickstart.plugins.lspconfig',
+  require 'kickstart.plugins.jdtls',
+  require 'kickstart.plugins.conform',
+  require 'kickstart.plugins.lint',
 
+  -- Editing
+  require 'kickstart.plugins.autopairs',
+  require 'kickstart.plugins.gitsigns',
+  require 'kickstart.plugins.which-key',
+  require 'kickstart.plugins.telescope',
   require 'kickstart.plugins.todo-comments',
-
   require 'kickstart.plugins.mini',
-
   require 'kickstart.plugins.treesitter',
-
   require 'kickstart.plugins.trouble',
+  require 'kickstart.plugins.harpoon',
+  require 'kickstart.plugins.grug-far',
+  require 'kickstart.plugins.neogen',
+  require 'kickstart.plugins.surround',
 
-  require 'kickstart.plugins.render-markdown',
-
-  -- The following comments only work if you have downloaded the kickstart repo, not just copy pasted the
-  -- init.lua. If you want these files, they are in the repository, so you can just download them and
-  -- place them in the correct locations.
-
-  -- NOTE: Next step on your Neovim journey: Add/Configure additional plugins for Kickstart
-  --
-  --  Here are some example plugins that I've included in the Kickstart repository.
-  --  Uncomment any of the lines below to enable them (you will need to restart nvim).
-  --
-  -- require 'kickstart.plugins.debug',
-  require 'kickstart.plugins.indent_line',
-  -- require 'kickstart.plugins.lint',
-  -- require 'kickstart.plugins.autopairs',
+  -- UI
+  require 'kickstart.plugins.colourscheme',
+  require 'kickstart.plugins.indent-line',
   require 'kickstart.plugins.neo-tree',
   require 'kickstart.plugins.lualine',
+  require 'kickstart.plugins.treesitter-context',
+  require 'kickstart.plugins.auto-session',
+  require 'kickstart.plugins.noice',
+  require 'kickstart.plugins.snacks',
 
-  -- NOTE: The import below can automatically add your own plugins, configuration, etc from `lua/custom/plugins/*.lua`
-  --    This is the easiest way to modularize your config.
-  --
-  --  Uncomment the following line and add your plugins to `lua/custom/plugins/*.lua` to get going.
-  -- { import = 'custom.plugins' },
-  --
-  -- For additional information with loading, sourcing and examples see `:help lazy.nvim-🔌-plugin-spec`
-  -- Or use telescope!
-  -- In normal mode type `<space>sh` then write `lazy.nvim-plugin`
-  -- you can continue same window with `<space>sr` which resumes last telescope search
+  -- Terminal
+  require 'kickstart.plugins.toggleterm',
+
+  -- Markdown
+  require 'kickstart.plugins.render-markdown',
+  require 'kickstart.plugins.preview-markdown',
+
+  -- Language-specific
+  require 'kickstart.plugins.vimtex',
+  require 'kickstart.plugins.unreal',
+
+  require 'kickstart.plugins.debug',
 }, {
   ui = {
     -- If you are using a Nerd Font: set icons to an empty table which will use the

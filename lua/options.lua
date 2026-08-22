@@ -79,10 +79,18 @@ vim.o.tabstop = 2     -- tab width
 vim.o.shiftwidth = 2  -- indent width
 vim.o.softtabstop = 2 -- <tab> insert width
 
-vim.filetype.add( {
+-- Register the .sarl extension so syntax/sarl.vim's highlighting applies
+vim.filetype.add({
   extension = {
-    sarl= 'sarl',
+    sarl = 'sarl',
   },
 })
+
+if vim.g.neovide then
+  vim.g.neovide_cursor_vfx_mode = "none"       -- Clear all particle noise
+  vim.g.neovide_cursor_animation_length = 0.12 -- Longer slide time creates a liquid stretch
+  vim.g.neovide_cursor_trail_size = 0.7        -- Long tail that tapers down smoothly
+  vim.g.neovide_cursor_antialiasing = true     -- Ensures perfectly smooth round corners
+end
 
 -- vim: ts=2 sts=2 sw=2 et

@@ -1,0 +1,45 @@
+# Reference template only — this file is NOT read automatically by this
+# Neovim config or by clangd unless you copy it into a UE project.
+#
+# clangd project-local settings belong in a ".clangd" file at the project
+# root (next to compile_commands.json), not in this Neovim config repo —
+# clangd looks for it there itself. Copy this into a new Unreal Engine
+# project as ".clangd" and adjust as needed.
+#
+# Settings that CAN'T go here (command-line-only flags) are instead set in
+# lua/kickstart/plugins/lspconfig.lua's clangd `cmd` table: --background-index,
+# --pch-storage. See https://clangd.llvm.org/config.html for the full schema.
+
+CompileFlags:
+  # UE's own code trips many warnings that aren't useful signal; and huge
+  # translation units can hit clang's default error limit before finishing
+  # a file, hiding real errors later in the same file.
+  Add:
+    - -ferror-limit=0
+    - -Wno-unused-parameter
+  # Remove: [] -- add flags here that your compile_commands.json includes
+  #   but that clangd's bundled clang doesn't understand (version mismatches
+  #   between UE's toolchain and clangd's are common).
+
+Index:
+  Background: Build # keep the background index on; only set to Skip on a
+    # severely memory-constrained machine — a codebase Unreal's size
+    # benefits a lot from it once built.
+
+Completion:
+  HeaderInsertion: IWYU
+
+Diagnostics:
+  # clangd's IncludeCleaner (unused/missing #include diagnostics) traces
+  # usage through the AST and is known to lose track through heavy
+  # indirection/macros — UHT-generated code and UE's forward-declaration-
+  # heavy headers are exactly that, producing false "unused include"
+  # warnings on genuinely-needed includes. UnusedIncludes requires clangd
+  # >= 14. MissingIncludes: None is already the default; set explicitly for
+  # clarity since it's the same feature.
+  UnusedIncludes: None
+  MissingIncludes: None
+  Includes:
+    IgnoreHeader:
+      - Generated\.h$
+    AnalyzeAngledIncludes: false

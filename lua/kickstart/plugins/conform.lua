@@ -31,6 +31,14 @@ return {
       end,
       formatters_by_ft = {
         lua = { 'stylua' },
+        -- clang-format respects the nearest .clang-format up the directory
+        -- tree (Unreal Engine ships one at the engine root), so <leader>f
+        -- gives correct UE-style formatting on demand. Deliberately NOT
+        -- added to format_on_save's disable_filetypes exemption above: any
+        -- C/C++ file without a project .clang-format would silently get
+        -- reformatted to clang-format's LLVM default style on every save.
+        c = { 'clang-format' },
+        cpp = { 'clang-format' },
         -- Conform can also run multiple formatters sequentially
         -- python = { "isort", "black" },
         --
